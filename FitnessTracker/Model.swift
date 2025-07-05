@@ -33,7 +33,8 @@ class WorkoutPlan{
 }
 
 @Model
-class TrackedExercise {
+class TrackedExercise: Identifiable {
+    var id: UUID = UUID()
     var exerciseName: String
     var sets: Int
     var reps: Int

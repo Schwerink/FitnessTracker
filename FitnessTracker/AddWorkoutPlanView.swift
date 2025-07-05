@@ -33,6 +33,9 @@ struct AddWorkoutPlanView: View {
             .toolbar{
                 ToolbarItem(placement: .confirmationAction){
                     Button("Speichern"){
+                        for exercise in exercises {
+                            context.insert(exercise)
+                        }
                         let plan = WorkoutPlan(name: name, exercises: exercises)
                         context.insert(plan)
                         dismiss()

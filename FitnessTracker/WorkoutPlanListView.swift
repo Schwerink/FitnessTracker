@@ -16,10 +16,10 @@ struct WorkoutPlanListView: View {
     
     
     var body: some View {
-        NavigationStack{
-            List{
+        NavigationStack {
+            List {
                 ForEach(plans) { plan in
-                    NavigationLink(plan.name){
+                    NavigationLink(plan.name) {
                         WorkoutTrackingView(plan: plan)
                     }
                 }
