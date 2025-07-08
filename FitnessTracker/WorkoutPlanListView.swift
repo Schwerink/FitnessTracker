@@ -13,6 +13,7 @@ struct WorkoutPlanListView: View {
     @Environment(\.modelContext) private var context
     @Query private var plans: [WorkoutPlan]
     @State private var showAddPlan = false
+    @State private var showHistory = false
     
     
     var body: some View {
@@ -34,7 +35,5 @@ struct WorkoutPlanListView: View {
                 AddWorkoutPlanView()
             }
         }
-        
     }
 }
-

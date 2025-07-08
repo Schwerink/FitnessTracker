@@ -6,11 +6,40 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WorkoutHistoryView: View {
+    
+    @Environment(\.modelContext) private var context
+    @Query private var sessions: [WorkoutSession]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List{
+            Text("Gefundene Sessions: \(sessions.count)")
+            ForEach(sessions) { session in
+                Section(header: Text(formattedDate(session.date))){
+                    ForEach(session.trackedExercises) { exercise in
+                        VStack(alignment: .leading){
+                            Text(exercise.exerciseName)
+                                .font(.headline)
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+                
+                
+                
+            }
+        }
+        .navigationTitle("Workout Verlauf")
     }
+    func formattedDate(_ date: Date)-> String{
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+    
 }
 
 #Preview {

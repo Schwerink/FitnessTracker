@@ -14,22 +14,50 @@ struct AddWorkoutPlanView: View {
     @State private var name = ""
     @State private var exercises: [Exercise] = []
     
+    @State private var newExerciseName = ""
+    @State private var newSets = 3
+    @State private var newReps = 10
+    
     var body: some View {
         NavigationStack{
             Form {
                 TextField("Plan Name", text:$name)
                 
                 Section("Übungen") {
-                    ForEach(exercises) { exercise in
-                        Text("\(exercise.name) - \(exercise.defaultSets) x \(exercise.defaultReps)")
+                    if exercises.isEmpty {
+                        Text("Noch keine Übungen Hinzugefügt")
+                    }else{
+                        ForEach(exercises) { exercise in
+                            Text("\(exercise.name) - \(exercise.defaultSets) x \(exercise.defaultReps)")
+                        }
+                        .onDelete{indexSet in exercises.remove(atOffsets: indexSet)}
+                        
                     }
-                    Button("Übung hinzufügen") {
-                        //hier kommt eingabe für eine übung rein
-                        exercises.append(Exercise(name: "Bankdrücken", defaultSets: 3, defaultReps: 10))
-                    }
+                    
                 }
+                
+                Section("Übung hinzufügen"){
+                    TextField("Übungsname", text:$newExerciseName)
+                    Stepper("Sätze: \(newSets)", value:$newSets, in: 1...10)
+                    Stepper("Wdh: \(newReps)", value:$newReps, in: 1...30)
+                    Button("Zur Liste hinzufügen"){
+                        let trimmedName = newExerciseName.trimmingCharacters(in: .whitespaces)
+                        guard !trimmedName.isEmpty else {return}
+                        
+                        let newExercise = Exercise(name:trimmedName, defaultSets: newSets, defaultReps:newReps)
+                        exercises.append(newExercise)
+                        
+                        newExerciseName = ""
+                        newSets = 3
+                        newReps = 10
+                    }
+                    .disabled(newExerciseName.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+                
             }
-            .navigationTitle("neuer Plan")
+            
+            
+            .navigationTitle("Neues Workout")
             .toolbar{
                 ToolbarItem(placement: .confirmationAction){
                     Button("Speichern"){
@@ -40,6 +68,7 @@ struct AddWorkoutPlanView: View {
                         context.insert(plan)
                         dismiss()
                     }
+                    .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || exercises.isEmpty)
                 }
                 ToolbarItem(placement: .cancellationAction){
                     Button("Abbrechen"){

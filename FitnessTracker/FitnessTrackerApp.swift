@@ -13,6 +13,6 @@ struct FitnessTrackerApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [WorkoutPlan.self, Exercise.self])
+        .modelContainer(for: [WorkoutPlan.self, Exercise.self, WorkoutSession.self, TrackedExercise.self])
     }
 }

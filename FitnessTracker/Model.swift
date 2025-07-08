@@ -39,9 +39,12 @@ class TrackedExercise: Identifiable {
     var sets: Int
     var reps: Int
     var weight: Double
+    
+    @Relationship var exercise: Exercise?
 
-    init(exerciseName: String, sets: Int, reps: Int, weight: Double) {
-        self.exerciseName = exerciseName
+    init(exercise: Exercise?, sets: Int, reps: Int, weight: Double) {
+        self.exercise = exercise
+        self.exerciseName = exercise?.name ?? "Unbekannt"
         self.sets = sets
         self.reps = reps
         self.weight = weight
@@ -49,7 +52,8 @@ class TrackedExercise: Identifiable {
 }
 
 @Model
-class WorkoutSession {
+class WorkoutSession: Identifiable{
+    var id: UUID = UUID()
     var date: Date
     @Relationship var trackedExercises: [TrackedExercise] = []
 
