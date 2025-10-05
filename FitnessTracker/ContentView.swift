@@ -16,7 +16,7 @@ struct ContentView: View {
                 }
             WorkoutHistoryView()
                 .tabItem{
-                    Label("Historie", systemImage: "list.dash")
+                    Label("Historie", systemImage: "clock")
                 }
         }
     }

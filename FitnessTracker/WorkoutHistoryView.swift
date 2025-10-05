@@ -14,25 +14,21 @@ struct WorkoutHistoryView: View {
     @Query private var sessions: [WorkoutSession]
     
     var body: some View {
-        List{
-            Text("Gefundene Sessions: \(sessions.count)")
-            ForEach(sessions) { session in
-                Section(header: Text(formattedDate(session.date))){
-                    ForEach(session.trackedExercises) { exercise in
-                        VStack(alignment: .leading){
-                            Text(exercise.exerciseName)
-                                .font(.headline)
+            List{
+                ForEach(sessions) { session in
+                    Section(header: Text(formattedDate(session.date))){
+                        ForEach(session.trackedExercises) { exercise in
+                            VStack(alignment: .leading){
+                                Text("\(exercise.exerciseName): \(exercise.sets) x \(exercise.reps)")
+                                    .font(.headline)
+                            }
+                            .padding(.vertical, 4)
                         }
-                        .padding(.vertical, 4)
                     }
                 }
-                
-                
-                
             }
         }
-        .navigationTitle("Workout Verlauf")
-    }
+    
     func formattedDate(_ date: Date)-> String{
         let formatter = DateFormatter()
         formatter.dateStyle = .medium

@@ -5,6 +5,13 @@
 //  Created by Erik on 16.05.25.
 //
 
+
+
+
+///Abändern, dass man für jeden satz die wiederholungen und das gewicht eingeben kann.
+///z.B. Überschrift bleibt name der Übung, darunter dann Zeile für satz 1, 2 und 3 und unter jedem satz dann wiederholungen und kg
+
+
 import SwiftUI
 
 struct WorkoutTrackingView: View {
